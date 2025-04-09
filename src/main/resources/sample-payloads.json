@@ -1,0 +1,78 @@
+{
+  "endpoints": [
+    {
+      "name": "Create a new support ticket",
+      "method": "POST",
+      "url": "http://localhost:8083/tickets",
+      "payload": {
+        "customerId": 1005,
+        "subject": "Website navigation issue",
+        "description": "I'm having trouble navigating through the product catalog. The search functionality doesn't seem to be working properly."
+      },
+      "description": "Creates a new support ticket in the system. The status will automatically be set to OPEN and timestamps will be generated."
+    },
+    {
+      "name": "Add a response to a ticket",
+      "method": "POST",
+      "url": "http://localhost:8083/tickets/1/responses",
+      "payload": {
+        "message": "I've tried clearing my browser cache and cookies, but the issue persists. Could you please look into this?",
+        "responderType": "CUSTOMER",
+        "responderId": 1001
+      },
+      "description": "Adds a new response to an existing ticket. The ticket ID is specified in the URL path."
+    },
+    {
+      "name": "Add a support agent response",
+      "method": "POST",
+      "url": "http://localhost:8083/tickets/1/responses",
+      "payload": {
+        "message": "Thank you for providing that information. I've checked our system and found that there's an issue with the search index. Our technical team is working on fixing it. In the meantime, you can use the category navigation on the left side of the page.",
+        "responderType": "SUPPORT_AGENT",
+        "responderId": 101
+      },
+      "description": "Adds a response from a support agent to the ticket."
+    },
+    {
+      "name": "Update ticket status",
+      "method": "PUT",
+      "url": "http://localhost:8083/tickets/1/status",
+      "payload": {
+        "status": "IN_PROGRESS"
+      },
+      "description": "Updates the status of a ticket. Valid status values are: OPEN, IN_PROGRESS, RESOLVED, CLOSED."
+    },
+    {
+      "name": "Mark ticket as resolved",
+      "method": "PUT",
+      "url": "http://localhost:8083/tickets/1/status",
+      "payload": {
+        "status": "RESOLVED"
+      },
+      "description": "Marks a ticket as resolved after the issue has been fixed."
+    },
+    {
+      "name": "Close a ticket",
+      "method": "PUT",
+      "url": "http://localhost:8083/tickets/1/status",
+      "payload": {
+        "status": "CLOSED"
+      },
+      "description": "Closes a ticket permanently."
+    }
+  ],
+  "curl_examples": [
+    {
+      "name": "Create a new ticket",
+      "command": "curl -X POST http://localhost:8083/tickets -H \"Content-Type: application/json\" -d \"{\\\"customerId\\\": 1005, \\\"subject\\\": \\\"Website navigation issue\\\", \\\"description\\\": \\\"I'm having trouble navigating through the product catalog. The search functionality doesn't seem to be working properly.\\\"}\""
+    },
+    {
+      "name": "Add a response to a ticket",
+      "command": "curl -X POST http://localhost:8083/tickets/1/responses -H \"Content-Type: application/json\" -d \"{\\\"message\\\": \\\"I've tried clearing my browser cache and cookies, but the issue persists. Could you please look into this?\\\", \\\"responderType\\\": \\\"CUSTOMER\\\", \\\"responderId\\\": 1001}\""
+    },
+    {
+      "name": "Update ticket status",
+      "command": "curl -X PUT http://localhost:8083/tickets/1/status -H \"Content-Type: application/json\" -d \"{\\\"status\\\": \\\"IN_PROGRESS\\\"}\""
+    }
+  ]
+}
